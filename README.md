@@ -10,7 +10,9 @@ The idea is simple: Given a fresh installation of Ubuntu (or another Debian-like
 
 ##Setup:
 Step 1: Make an empty dotfiles repo on Git, somewhere, it doesn't have to be GitHub but it can be.
+
 Step 2: Copy your dotfiles from your first computer into that repo. Just the ones that you want to manage.
+
 Step 3: Run dotfriles where you want those dotfiles go go. It's that easy!
 
 ##Usage:
