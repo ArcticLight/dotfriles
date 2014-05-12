@@ -14,5 +14,6 @@ Step 2: Copy your dotfiles from your first computer into that repo. Just the one
 Step 3: Run dotfriles where you want those dotfiles go go. It's that easy!
 
 ##Usage:
-just type `wget "https://raw.githubusercontent.com/ArcticLight/dotfriles/master/dotfriles.sh" -O - | sh`
-And bam, you're ready to go!
+just type `wget "https://raw.githubusercontent.com/ArcticLight/dotfriles/master/dotfriles.sh"`
+to grab the script, run it,
+and bam, you're ready to go!
