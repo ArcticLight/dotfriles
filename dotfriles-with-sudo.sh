@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "Updating APT indexes..."
-apt-get update 1> /dev/null
+apt-get update > ~/.dotfriles/apt-update-log.log
 echo "Running apt-get upgrade (to bring you up to date)..."
-apt-get -y upgrade 1> /dev/null
+apt-get -y upgrade > ~/.dotfriles/apt-upgrade-log.log
 echo "Now installing git, zsh, and vim..."
-apt-get -y install git zsh vim 1> /dev/null
+apt-get -y install git zsh vim > ~/.dotfriles/apt-install-log.log
 echo "Done!"
