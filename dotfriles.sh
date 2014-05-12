@@ -38,7 +38,7 @@ chmod +x ~/.dotfriles/dotfriles-with-sudo.sh
 
 echo
 echo "Got the installer. Will now install GIT, ZSH, and VIM."
-sudo ~/.dotfriles/dotfriles-with-sudo.sh
+sudo ~/.dotfriles/dotfriles-with-sudo.sh 2> ~/.dotfriles/install-log.log
 if [ $? -ne 0 ]; then
     echo "ERROR! Something went wrong!"
     echo "Logs are available in your ~/.dotfriles/ directory."
