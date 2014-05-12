@@ -13,7 +13,7 @@ Step 1: Make an empty dotfiles repo on Git, somewhere, it doesn't have to be Git
 
 Step 2: Copy your dotfiles from your first computer into that repo. Just the ones that you want to manage.
 
-Step 3: Run dotfriles where you want those dotfiles go go. It's that easy!
+Step 3: Run dotfriles where you want those dotfiles to go. It's that easy!
 
 ##Usage:
 just type `wget "https://raw.githubusercontent.com/ArcticLight/dotfriles/master/dotfriles.sh"`
