@@ -33,7 +33,7 @@ fi
 echo ".... Downloading latest DotFriles-sudo script ...."
 mkdir -p ~/.dotfriles
 cd ~/.dotfriles
-wget "https://raw.githubusercontent.com/ArcticLight/dotfriles/master/dotfriles-with-sudo.sh" -O - 2> /dev/null > ~/.dotfriles/dotfriles-with-sudo.sh
+wget "https://raw.githubusercontent.com/hawkw/dotfriles/master/dotfriles-with-sudo.sh" -O - 2> /dev/null > ~/.dotfriles/dotfriles-with-sudo.sh
 chmod +x ~/.dotfriles/dotfriles-with-sudo.sh
 
 echo
