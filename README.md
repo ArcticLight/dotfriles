@@ -3,7 +3,7 @@ dotfriles
 
 The idea is simple: Given a fresh installation of Ubuntu (or another Debian-like system), design a system which can take you from Zero to Zsh with a single command issued in a prompt.
 
-This fork contains some additional features I've added for my own personal use, such as checking the OS and copying SublimeText 3 configs into the correct location based on OS. It may or may not work for your setup.
+This is a fork of @ArcticLight's dotfriles. The fork contains some additional features I've added for my own personal use, such as checking the OS and copying SublimeText 3 configs into the correct location based on OS. It may or may not work for your setup.
 
 ### Project Goals:
 - Simple: i.e. single command.
