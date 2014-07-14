@@ -153,6 +153,35 @@ for file in `ls -a ~/.dotfriles/config/`; do
             while read package; do
                 install(package)
             done < $file
+            ;;
+        sublime-text-2 | Sublime\ Text\ 2)
+            echo "Found configs for SublimeText 2"
+            filename=`basename $file`
+            if [ $OSTYPE == "linux"* ] then; # we are on a Linux machine...
+                echo "Copying SublimeText 2 configs for Linux"
+                ln -s ~/.dotfriles/config/$filename ~/.config/$sublime-text-2
+            elif [ $OSTYPE == "darwin"* ] then;     # we are on a Mac...
+                echo "Copying SublimeText 2 configs for Mac OS X"
+                ln -s ~/.dotfriles/config/$filename ~/Library/Application Support/Sublime\ Text\ 2
+            else
+                echo "OS type not supported."
+                # TODO: Support other OS types
+            fi
+            ;;
+       sublime-text-3 | Sublime\ Text\ 3)
+            echo "Found configs for SublimeText 3"
+            filename=`basename $file`
+            if [ $OSTYPE == "linux"* ] then; # we are on a Linux machine...
+                echo "Copying SublimeText 3 configs for Linux"
+                ln -s ~/.dotfriles/config/$filename ~/.config/$sublime-text-3
+            elif [ $OSTYPE == "darwin"* ] then;     # we are on a Mac...
+                echo "Copying SublimeText 3 configs for Mac OS X"
+                ln -s ~/.dotfriles/config/$filename ~/Library/Application Support/Sublime\ Text\ 3
+            else
+                echo "OS type not supported."
+                # TODO: Support other OS types
+            fi
+            ;;
         *)
             filename=`basename $file`
             echo "Linking $filename -> ~/$filename"
