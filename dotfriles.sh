@@ -5,11 +5,15 @@ function brew-install() {
     echo "---------- -------- ----- --------"
     if [ $(which brew) == "" ] then;
         echo "Homebrew is not installed. Installing..."
-        if [ $(ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)") -eq 0 ] then;
-            echo "Homebrew installed successfully."
-        else echo "Homebrew install failed!"
+        if [ -x which curl] then;
+            echo "Installing Homebrew with"
+            if [ $(ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)") -eq 0 ] then;
+                echo "Homebrew installed successfully."
+            else echo "Homebrew install failed!"
+                return 1
+            fi
+        else echo "Can't install Homebrew, no curl"
             return 1
-        fi
     fi
     echo "Updating Homebrew. This could take a moment..."
     brew upgrade 1>&2
@@ -70,6 +74,8 @@ if [ $OSTYPE == "linux"* ] then
     sudo echo ""
 fi
 
+install() # Install git so that we can git things
+
 read -p "GitHub clone URL for YOUR dotfriles config: " repo
 echo ""
 echo "-=-=-=-=-=-=-=-"
@@ -124,6 +130,11 @@ for file in `ls -a ~/.dotfriles/config/`; do
         .gitignore)
             echo "Ignoring .gitignore"
             ;;
+        packages.txt)
+            echo "Found packages.txt, installing packages."
+            while read package; do
+                install(package)
+            done < $file
         *)
             filename=`basename $file`
             echo "Linking $filename -> ~/$filename"
