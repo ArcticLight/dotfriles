@@ -3,7 +3,7 @@
 function brew-install() {
     echo "Installing packages using Homebrew."
     echo "---------- -------- ----- --------"
-    if [ $(which brew) == "" ] then;
+    if [ -z $(which brew) ] then;
         echo "Homebrew is not installed. Installing..."
         if [ -x which curl] then;
             echo "Installing Homebrew with"
@@ -35,21 +35,39 @@ function brew-install() {
 }
 
 function apt-install() {
-  # Max wrote this one. I haven't touched it yet
-  # TODO: make it check if the apt install worked correctly.
-    echo ".... Downloading latest DotFriles-sudo script ...."
-    wget "https://raw.githubusercontent.com/hawkw/dotfriles/master/dotfriles-with-sudo.sh" -O - 2> /dev/null > ~/.dotfriles/dotfriles-with-sudo.sh
-    chmod +x ~/.dotfriles/dotfriles-with-sudo.sh
+    if [ -x ~/.dotfriles/dotfriles-with-sudo.sh ] then;
+        if [ -z $1 ] then;
+            echo "Will now install GIT, ZSH, and VIM with Aptitude."
+            sudo ~/.dotfriles/dotfriles-with-sudo.sh 2> ~/.dotfriles/install-log.log
+        else
+            echo "Will now install $1 with Aptitude"
+            sudo ~/.dotfriles/dotfriles-with-sudo.sh $1 2> ~/.dotfriles/install-log.log
+        fi
+        if [ $? -ne 0 ]; then
+            echo "ERROR! Something went wrong!"
+            echo "Logs are available in your ~/.dotfriles/ directory."
+            echo "Aborting!"
+            exit
+        fi
+    else
+        echo ".... Downloading latest DotFriles-sudo script ...."
+        wget "https://raw.githubusercontent.com/hawkw/dotfriles/master/dotfriles-with-sudo.sh" -O - 2> /dev/null > ~/.dotfriles/dotfriles-with-sudo.sh
+        chmod +x ~/.dotfriles/dotfriles-with-sudo.sh
 
-    echo
-    echo "Got the installer. Will now install GIT, ZSH, and VIM."
-    sudo ~/.dotfriles/dotfriles-with-sudo.sh 2> ~/.dotfriles/install-log.log
-    if [ $? -ne 0 ]; then
-        echo "ERROR! Something went wrong!"
-        echo "Logs are available in your ~/.dotfriles/ directory."
-        echo "Aborting!"
-        exit
-    fi
+        echo
+        if [ -z $1 ] then;
+            echo "Got the installer. Will now install GIT, ZSH, and VIM."
+            sudo ~/.dotfriles/dotfriles-with-sudo.sh 2> ~/.dotfriles/install-log.log
+        else
+            echo "Got the installer. Will now install $1"
+            sudo ~/.dotfriles/dotfriles-with-sudo.sh $1 2> ~/.dotfriles/install-log.log
+        fi
+        if [ $? -ne 0 ]; then
+            echo "ERROR! Something went wrong!"
+            echo "Logs are available in your ~/.dotfriles/ directory."
+            echo "Aborting!"
+            exit
+        fi
 }
 
 function install() {
