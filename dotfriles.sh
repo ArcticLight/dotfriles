@@ -1,20 +1,36 @@
 #!/bin/bash
 
-function brew-install {
-  echo "Installing packages using Homebrew."
-  echo "---------- -------- ----- --------"
-  if [ $(which brew) == "" ] then;
-    echo "Homebrew is not installed. Installing..."
-    if [ $(ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)") -eq 0 ] then;
-      echo "Homebrew installed successfully."
-    else echo "Homebrew install failed!"
-    return 1
-  fi
-  echo "Updating Homebrew. This could take a moment..."
-  brew upgrade 1>&2
+function brew-install() {
+    echo "Installing packages using Homebrew."
+    echo "---------- -------- ----- --------"
+    if [ $(which brew) == "" ] then;
+        echo "Homebrew is not installed. Installing..."
+        if [ $(ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)") -eq 0 ] then;
+            echo "Homebrew installed successfully."
+        else echo "Homebrew install failed!"
+            return 1
+        fi
+    fi
+    echo "Updating Homebrew. This could take a moment..."
+    brew upgrade 1>&2
+    if [ -z "$1" ] then;
+        echo "Install command was called with no argument, installing git, zsh, and vim"
+        if [ $(brew install git vim zsh) -eq 0 ] then;
+            echo "Homebrew installed git, zsh, and vim successfully"
+        else echo "Homebrew install failed!"
+            return 1
+        fi
+    else
+        echo "Installing $1"
+        if [ $(brew install $1) -eq 0 ] then;
+            echo "Homebrew installed $1 successfully"
+        else echo "Homebrew install failed!"
+            return 1
+        fi
+    fi
 }
 
-function apt-install {
+function apt-install() {
   # Max wrote this one. I haven't touched it yet
   # TODO: make it check if the apt install worked correctly.
     echo ".... Downloading latest DotFriles-sudo script ...."
@@ -29,6 +45,17 @@ function apt-install {
         echo "Logs are available in your ~/.dotfriles/ directory."
         echo "Aborting!"
         exit
+    fi
+}
+
+function install() {
+    if [ $OSTYPE == "linux"* ] then; # we are on a Linux machine...
+        apt-install $1               # ...use the sudo install script for apt
+    elif [ $OSTYPE == "darwin"* ] then;     # we are on a Mac...
+        brew-install $1                     # ...use the Homebrew install script
+    else
+        echo "OS type not supported."
+        # TODO: Support other OS types
     fi
 }
 
@@ -67,15 +94,7 @@ fi
 
 mkdir -p ~/.dotfriles
 cd ~/.dotfriles
-if [ $OSTYPE == "linux"* ] then; # we are on a Linux machine...
-    apt-install                  # ...use the sudo install script for apt
 
-elif [ $OSTYPE == "darwin"* ] then; # we are on a Mac...
-    brew-install                    # ...use the Homebrew install script
-else
-    echo "OS type not supported."
-    # TODO: Support other OS types
-fi
 
 git clone $repo ~/.dotfriles/config/ &> ~/.dotfriles/git-log.log
 if [ $? -ne 0 ]; then
