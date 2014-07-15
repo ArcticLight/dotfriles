@@ -18,8 +18,8 @@ function brew-install() {
     echo "Updating Homebrew. This could take a moment..."
     brew upgrade 1>&2
     if [ -z "$1" ] then;
-        echo "Install command was called with no argument, installing git, zsh, and vim"
-        if [ $(brew install git vim zsh) -eq 0 ] then;
+        echo "Install command was called with no argument, installing git, zsh, wget, and vim"
+        if [ $(brew install git vim zsh wget) -eq 0 ] then;
             echo "Homebrew installed git, zsh, and vim successfully"
         else echo "Homebrew install failed!"
             return 1
